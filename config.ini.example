@@ -1,0 +1,7 @@
+[DEFAULT]
+# Test network, node that manu has on ropsten test ethereum network
+EthereumNode =
+# Metamask address on the ropsten network
+MetamaskAddress =
+# A secret from which your private key will be generated
+PrivateKeySecret =

@@ -3,21 +3,15 @@
 from eth_account import Account
 from web3 import Web3, HTTPProvider
 from web3.gas_strategies.time_based import medium_gas_price_strategy
+import config
 
-
-#Test network, node that manu has on ropsten test ethereum network
-site="https://ropsten.infura.io/v3/__NODE__"
-#my metamask address on the ropsten network
-metamask_address='0x73D8b0742D563869D8197eC13cF3Fe6Ef5552Adc'
-private_key_secret='Something' # any secret from which your private key will be generated
-
-w3 = Web3(HTTPProvider(site,request_kwargs={'timeout':60}))
+w3 = Web3(HTTPProvider(config['DEFAULT']['EthereumNode'],request_kwargs={'timeout':60}))
 
 # block = w3.eth.get_block(12345)
 # print(block)
 # exit()
 
-private_key = w3.sha3(text = private_key_secret)
+private_key = w3.sha3(text = config['DEFAULT']['PrivateKeySecret'])
 print('private key:', private_key)
 
 acct = w3.eth.account.privateKeyToAccount(private_key)
@@ -30,7 +24,7 @@ tx = dict(
     maxFeePerGas=3000000000,
     maxPriorityFeePerGas=2000000000,
     gas=100000,
-    to=metamask_address,
+    to=config['DEFAULT']['MetamaskAddress'],
     value=Web3.toWei(0.01, 'ether'),
     data=b'',
     type=2,
