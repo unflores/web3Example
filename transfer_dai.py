@@ -8,22 +8,19 @@ import config
 
 w3 = Web3(HTTPProvider(config['DEFAULT']['EthereumNode'],request_kwargs={'timeout':60}))
 w3.eth.setGasPriceStrategy(medium_gas_price_strategy)
+contract = dai.contract()
 
-dai_contract_address = Web3.toChecksumAddress("0xad6d458402f60fd3bd25163575031acdce07538d")
-
-contract_instance = w3.eth.contract(address=dai_contract_address, abi=dai.contract_abi)
-
-print(contract_instance.functions.name().call())
+print(contract.functions.name().call())
 
 private_key = w3.sha3(text = config['DEFAULT']['PrivateKeySecret'])
 acct = w3.eth.account.privateKeyToAccount(private_key)
 print ('account_address: ', acct.address)
 
-print('amount: ', contract_instance.functions.balanceOf(acct.address).call() / 10**18)
+print('amount: ', contract.functions.balanceOf(acct.address).call() / 10**18)
 
 
 
-transaction = contract_instance.functions.transfer(config['DEFAULT']['MetaMaskAddress'], 10*10**18).buildTransaction()
+transaction = contract.functions.transfer(config['DEFAULT']['MetaMaskAddress'], Web3.toWei(10, 'ether')).buildTransaction()
 transaction.update({ 'nonce' : w3.eth.get_transaction_count(acct.address) })
 signed_tx = w3.eth.account.sign_transaction(transaction, private_key)
 
