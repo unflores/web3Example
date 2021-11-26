@@ -7,5 +7,6 @@ contract_abi = '[{"inputs":[{"internalType":"uint256","name":"chainId_","type":"
 contract_address = "0xad6d458402f60fd3bd25163575031acdce07538d"
 
 def contract:
+  # https://coincodex.com/article/2078/ethereum-address-checksum-explained/
   checksummed_contract_address = Web3.toChecksumAddress(dai.contract_address)
   return w3.eth.contract(address=checksummed_contract_address, abi=dai.contract_abi)
