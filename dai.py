@@ -1,4 +1,6 @@
-import config
+from config import config
+from web3 import Web3, HTTPProvider
+
 
 w3 = Web3(HTTPProvider(config['DEFAULT']['EthereumNode'],request_kwargs={'timeout':60}))
 
@@ -6,7 +8,7 @@ contract_abi = '[{"inputs":[{"internalType":"uint256","name":"chainId_","type":"
 
 contract_address = "0xad6d458402f60fd3bd25163575031acdce07538d"
 
-def contract:
+def contract():
   # https://coincodex.com/article/2078/ethereum-address-checksum-explained/
-  checksummed_contract_address = Web3.toChecksumAddress(dai.contract_address)
-  return w3.eth.contract(address=checksummed_contract_address, abi=dai.contract_abi)
+  checksummed_contract_address = Web3.toChecksumAddress(contract_address)
+  return w3.eth.contract(address=checksummed_contract_address, abi=contract_abi)

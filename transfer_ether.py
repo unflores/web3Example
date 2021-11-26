@@ -3,7 +3,7 @@
 from eth_account import Account
 from web3 import Web3, HTTPProvider
 from web3.gas_strategies.time_based import medium_gas_price_strategy
-import config
+from config import config
 
 w3 = Web3(HTTPProvider(config['DEFAULT']['EthereumNode'],request_kwargs={'timeout':60}))
 
